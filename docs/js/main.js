@@ -96,3 +96,22 @@
     else if (e.key === 'ArrowRight') show(index + 1);
   });
 })();
+
+/* =========================================================================
+   현장사진 저장 방지 (index.html, projects.html)
+   PC 우클릭 메뉴와 안드로이드 '꾹 누르기' 메뉴, 사진 끌어서 저장을 막습니다.
+   ========================================================================= */
+
+(function () {
+  'use strict';
+
+  var PHOTOS = '.gallery img, .viewer img, .proj-card img';
+
+  document.addEventListener('contextmenu', function (e) {
+    if (e.target.closest(PHOTOS)) e.preventDefault();
+  });
+
+  document.addEventListener('dragstart', function (e) {
+    if (e.target.closest(PHOTOS)) e.preventDefault();
+  });
+})();

@@ -349,6 +349,15 @@ p { margin: 0; }
   max-width: 92vw; max-height: 86vh;
   object-fit: contain; border-radius: 2px;
 }
+
+/* 현장사진 저장 방지 — 모바일 '꾹 누르기' 메뉴, 끌어서 저장, 선택 막기
+   (우클릭 막기는 js/main.js 에 있습니다) */
+.gallery img, .viewer img, .proj-card img {
+  -webkit-touch-callout: none;   /* 아이폰 꾹 누르기 저장 메뉴 끄기 */
+  -webkit-user-select: none; user-select: none;
+  -webkit-user-drag: none;       /* 바탕화면으로 끌어다 놓기 막기 */
+}
+
 .viewer-close, .viewer-nav {
   position: absolute; background: rgba(255,255,255,.12); color: #fff;
   border: 0; cursor: pointer; border-radius: 50%;
