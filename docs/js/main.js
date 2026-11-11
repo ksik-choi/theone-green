@@ -1,6 +1,6 @@
 /* =========================================================================
    (주)더원그린건설 홈페이지 공통 스크립트
-   지금 하는 일은 하나뿐입니다 — 모바일에서 햄버거(≡) 버튼으로 메뉴 열고 닫기.
+   모바일에서 햄버거(≡) 버튼으로 메뉴 열고 닫기.
    ========================================================================= */
 
 (function () {
@@ -8,10 +8,12 @@
 
   var toggle = document.querySelector('.nav-toggle');
   var gnb = document.getElementById('gnb');
+  var header = document.querySelector('.site-header');
   if (!toggle || !gnb) return;
 
   function setOpen(open) {
     gnb.classList.toggle('is-open', open);
+    if (header) header.classList.toggle('menu-open', open);   // 메인 페이지 투명 헤더를 흰색으로
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     toggle.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
   }
@@ -114,4 +116,54 @@
   document.addEventListener('dragstart', function (e) {
     if (e.target.closest(PHOTOS)) e.preventDefault();
   });
+})();
+
+/* =========================================================================
+   메인 페이지 헤더 — 맨 위에서는 투명(is-top), 스크롤하면 흰색 (index.html 에서만)
+   ========================================================================= */
+
+(function () {
+  'use strict';
+
+  var header = document.querySelector('.site-header');
+  if (!header || !document.body.classList.contains('home')) return;
+
+  function update() {
+    header.classList.toggle('is-top', window.scrollY <= 40);
+  }
+  update();
+  window.addEventListener('scroll', update, { passive: true });
+})();
+
+/* =========================================================================
+   스크롤 등장 효과 — class="reveal" 이 붙은 요소가 화면에 들어오면 is-visible 추가
+   (실제 움직임은 css/style.css 의 '스크롤 등장 효과' 부분)
+   ========================================================================= */
+
+(function () {
+  'use strict';
+
+  var items = document.querySelectorAll('.reveal');
+  if (!items.length) return;
+
+  // 이 표시가 붙어야만 CSS가 요소를 숨깁니다. 스크립트가 안 돌면 내용이 그냥 보입니다.
+  document.documentElement.classList.add('js');
+
+  function showAll() {
+    for (var i = 0; i < items.length; i++) items[i].classList.add('is-visible');
+  }
+
+  // 아주 오래된 브라우저는 그냥 전부 보여줌
+  if (!('IntersectionObserver' in window)) { showAll(); return; }
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);   // 한 번 나타나면 끝
+      }
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+
+  for (var i = 0; i < items.length; i++) io.observe(items[i]);
 })();
