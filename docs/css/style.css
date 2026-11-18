@@ -617,15 +617,6 @@ a.contact-line:hover .contact-go { translate: 4px 0; }
   line-height: 1.45; letter-spacing: -0.03em; color: var(--navy);
 }
 .office-zip { margin-top: 10px; font-size: 15px; color: var(--text-muted); }
-.map-links { margin-top: 32px; display: flex; gap: 10px; flex-wrap: wrap; }
-.map-links a {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 15px; font-weight: 700; padding: 13px 22px;
-  border: 1px solid var(--navy); border-radius: var(--radius);
-  background: #fff; color: var(--navy);
-  transition: background-color .18s, color .18s;
-}
-.map-links a:hover { background: var(--navy); color: #fff; }
 .office-notice {
   margin-top: 36px; padding: 20px 24px; background: #fff;
   border-left: 3px solid var(--orange);
@@ -900,7 +891,6 @@ a.proj-card:hover {
   .philo-num { font-size: 52px; margin-bottom: 20px; }
   .contact-line { grid-template-columns: 1fr; padding: 26px 2px; }
   .contact-go { padding-bottom: 0; }
-  .map-links a { flex: 1 1 100%; justify-content: center; }
 
   /* 시공실적 */
   .site-block { padding: 38px 0; }
